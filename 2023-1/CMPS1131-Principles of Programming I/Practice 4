@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+void PrintResult(int);
+
+int main()
+{
+  int number;
+  
+  cout<<"Enter number: ";
+  cin>>number;
+  PrintResult (number);
+  
+  return 0;
+}
+
+void PrintResult(int number)
+{
+    if (number%2==0)
+    cout<<"The number is even.";
+    else
+    cout<<"Not even.";
+}
