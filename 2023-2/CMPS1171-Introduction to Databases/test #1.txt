@@ -1,0 +1,110 @@
+1. What is the average BJAT score of the primary school you attended?
+
+SELECT AVG(bjat)
+FROM BJATGRADES 
+JOIN students  ON BJATGRADES.BJATStudentID = students.StudentID
+JOIN pschools  ON students.BJATschoolID = pschools.PSchoolID
+WHERE pschoolname='SHEPHERDS ACADE CY';
+
+2. What is the average PSE score of the primary school you attended?
+
+SELECT AVG(pse)
+FROM PSEGRADES 
+JOIN students  ON PSEGRADES.PSEStudentID = students.StudentID
+JOIN pschools  ON students.PSEschoolID = pschools.PSchoolID
+WHERE pschoolname='SHEPHERDS ACADE CY';
+
+3. What is the average ATLIB math score of the high school you attended?
+
+SELECT AVG(atlibgrades.atlibmath)
+FROM atlibgrades 
+JOIN students  ON atlibgrades.atlibStudentID = students.StudentID
+JOIN hschools  ON students.atlibschoolID = hschools.hSchoolID
+WHERE hschoolname='Belmopan Methodist High School';
+
+4. What school had the highest PSE score?
+
+SELECT pschools.pschoolname, MAX(psegrades.pse) AS max_pse
+FROM psegrades
+JOIN students  ON PSEGRADES.PSEStudentID = students.StudentID
+JOIN pschools  ON students.PSEschoolID = pschools.PSchoolID
+GROUP BY pschools.pschoolname
+ORDER BY max_pse DESC
+LIMIT 1;
+
+
+5. What school had the highest PSE average score?
+
+SELECT pschools.pschoolname, AVG(psegrades.pse) AS avg_pse
+FROM psegrades
+JOIN students  ON PSEGRADES.PSEStudentID = students.StudentID
+JOIN pschools  ON students.PSEschoolID = pschools.PSchoolID
+GROUP BY pschools.pschoolname
+ORDER BY avg_pse DESC
+LIMIT 1;
+
+6. What school had the lowest PSE score?
+
+SELECT pschools.pschoolname, MIN(psegrades.pse) AS mIN_pse
+FROM psegrades
+JOIN students  ON PSEGRADES.PSEStudentID = students.StudentID
+JOIN pschools  ON students.PSEschoolID = pschools.PSchoolID
+GROUP BY pschools.pschoolname
+ORDER BY min_pse 
+LIMIT 1;
+
+7. What school had the lowest PSE average score?
+
+SELECT pschools.pschoolname, AVG(psegrades.pse) AS avg_pse
+FROM psegrades
+JOIN students  ON PSEGRADES.PSEStudentID = students.StudentID
+JOIN pschools  ON students.PSEschoolID = pschools.PSchoolID
+GROUP BY pschools.pschoolname
+ORDER BY avg_pse
+LIMIT 1;
+
+8. What type of funding had the highest PSE average score?
+
+SELECT pschools.funding, AVG(psegrades.pse) AS avg_pse
+FROM psegrades
+JOIN students  ON PSEGRADES.PSEStudentID = students.StudentID
+JOIN pschools  ON students.PSEschoolID = pschools.PSchoolID
+GROUP BY pschools.funding
+ORDER BY avg_pse DESC
+LIMIT 1;
+
+9. What type of funding had the lowest PSE average score?
+
+SELECT pschools.funding, AVG(psegrades.pse) AS avg_pse
+FROM psegrades
+JOIN students  ON PSEGRADES.PSEStudentID = students.StudentID
+JOIN pschools  ON students.PSEschoolID = pschools.PSchoolID
+GROUP BY pschools.funding
+ORDER BY avg_pse
+LIMIT 1;
+
+10. What district had the highest PSE average score?
+SELECT pschools.district, AVG(psegrades.pse) AS avg_pse
+FROM psegrades
+JOIN students  ON PSEGRADES.PSEStudentID = students.StudentID
+JOIN pschools  ON students.PSEschoolID = pschools.PSchoolID
+GROUP BY pschools.district
+ORDER BY avg_pse DESC
+LIMIT 1;
+
+-----------------------------------------------------------------------------------------------
+BONUS
+-----
+
+What school is the biggest school?
+
+SELECT pschools.pschoolname, COUNT(students.StudentID) AS num_students
+FROM students
+JOIN pschools ON students.PSEschoolID = pschools.PSchoolID
+GROUP BY pschools.pschoolname
+ORDER BY num_students DESC
+LIMIT 2;
+
+NOTE: I set the limit to 2 because when it was 1 it only showed me a 'N' for school name with a population of 5,266 students which I'm not quite sure is correct so I set the limit to 2 so the it displasy the actual school with the most amount of students
+
+

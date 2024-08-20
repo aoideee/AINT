@@ -1,0 +1,63 @@
+1. List the Districts by average BJAT scores in descending order.
+
+SELECT District, AVG(bjat)
+FROM BJATGRADES  
+JOIN students  ON BJATGRADES.BJATStudentID = students.StudentID
+JOIN pschools  ON students.BJATschoolID = pschools.PSchoolID
+GROUP BY District
+ORDER BY AVG(bjat) DESC;
+
+2. List the School Management by average BJAT scores in descending order.
+
+SELECT management, AVG(bjat)
+FROM BJATGRADES
+JOIN students  ON BJATGRADES.BJATStudentID = students.StudentID
+JOIN pschools  ON students.BJATschoolID = pschools.PSchoolID
+GROUP BY management
+ORDER BY AVG(bjat) DESC;
+
+3. List the School Location (Urban/Rural) by average BJAT scores in descending order.
+
+SELECT urbanrural, AVG(bjat)
+FROM BJATGRADES
+JOIN students  ON BJATGRADES.BJATStudentID = students.StudentID
+JOIN pschools  ON students.BJATschoolID = pschools.PSchoolID
+GROUP BY urbanrural
+ORDER BY AVG(bjat) DESC;
+
+4.List the Municipality by average BJAT scores in descending order.
+
+SELECT municipality, AVG(bjat)
+FROM BJATGRADES
+JOIN students  ON BJATGRADES.BJATStudentID = students.StudentID
+JOIN pschools  ON students.BJATschoolID = pschools.PSchoolID
+GROUP BY municipality 
+ORDER BY AVG(bjat) DESC;
+
+5. List the Funding by average BJAT scores in descending order.
+
+SELECT funding, AVG(bjat)
+FROM BJATGRADES
+JOIN students  ON BJATGRADES.BJATStudentID = students.StudentID
+JOIN pschools  ON students.BJATschoolID = pschools.PSchoolID
+GROUP BY funding 
+ORDER BY AVG(bjat) DESC;
+
+6.List the Schools by average BJAT scores in descending order.
+
+SELECT pschoolname, AVG(bjat)
+FROM BJATGRADES
+JOIN students  ON BJATGRADES.BJATStudentID = students.StudentID
+JOIN pschools  ON students.BJATschoolID = pschools.PSchoolID
+GROUP BY pschoolname
+ORDER BY AVG(bjat) DESC;
+
+7. List the Schools from your home District by average BJAT scores in descending order.
+
+SELECT pschoolname, AVG(bjat)
+FROM BJATGRADES
+JOIN students  ON BJATGRADES.BJATStudentID = students.StudentID
+JOIN pschools  ON students.BJATschoolID = pschools.PSchoolID
+WHERE district = 'Cayo'
+GROUP BY pschoolname
+ORDER BY AVG(bjat) DESC;

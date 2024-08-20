@@ -1,0 +1,41 @@
+Those of you that have completed the 6 Next JS chapters run the following queries:
+
+1.) Which customer does invoice 500 belong to?
+
+    SELECT invoices.amount, customers.name
+    FROM invoices
+    JOIN customers ON invoices.customer_id = customers.id
+    WHERE invoices.amount = 500;
+
+2.) How many customers total have pending payments?
+
+    SELECT invoices.status, customers.name
+    FROM invoices
+    JOIN customers ON invoices.customer_id = customers.id
+    WHERE invoices.status = 'pending';
+
+3.) What is the total amount of dollars that have been paid?
+
+    SELECT SUM(amount) as Total_Paid
+    FROM invoices
+    WHERE status = 'paid';
+
+4.) List the names and emails of all customers.
+
+    SELECT name, email
+    FROM customers;
+
+5.) Show the directory and the image name for the customer Evil Rabbit.
+
+    SELECT name, image_url
+    FROM customers
+    WHERE name = 'Evil Rabbit';
+
+Add any other interesting query. Each student must have a different query.
+
+6.) Show the month with the most revenue.
+
+    SELECT month, revenue
+    FROM revenue
+    ORDER BY revenue DESC
+    LIMIT 1;

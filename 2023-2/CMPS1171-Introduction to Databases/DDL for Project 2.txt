@@ -1,0 +1,84 @@
+CREATE DATABASE project_2;
+
+\c project_2
+
+CREATE TABLE Semester(
+	semester_id INT NOT NULL,
+	semester_name VARCHAR(50) NOT NULL,
+	semester_start_date DATE NOT NULL,
+	semester_end_date DATE NOT NULL,
+	PRIMARY KEY (semester_id)
+);
+
+CREATE TABLE Courses(
+	course_id VARCHAR NOT NULL,
+	course_name VARCHAR(50) NOT NULL,
+	course_description VARCHAR NOT NULL,
+ 	course_outline TEXT NOT NULL,
+	course_pass_rate DECIMAL (5,2),
+	course_average VARCHAR,
+	PRIMARY KEY (course_id)
+);
+
+CREATE TABLE Advisors(
+	advisor_id INT NOT NULL,
+	advisor_first_name VARCHAR(50) NOT NULL,
+	advisor_last_name VARCHAR(50) NOT NULL,
+	advisor_phone_number VARCHAR(20),
+	advisor_email VARCHAR(100) NOT NULL,
+	advisor_office_location VARCHAR(100),
+	advisor_office_hours VARCHAR(100),
+	PRIMARY KEY (advisor_id)
+);
+
+CREATE TABLE Users(
+	user_id INT NOT NULL,
+	user_first_name VARCHAR(50) NOT NULL,
+	user_last_name VARCHAR(50) NOT NULL,
+	user_email VARCHAR(100) NOT NULL,
+	user_enrollment_date DATE,
+	advisor_id INT NOT NULL,
+	PRIMARY KEY (user_id),
+	FOREIGN KEY (advisor_id)
+	REFERENCES Advisors(advisor_id)
+);
+
+CREATE TABLE Grades(
+	grade_id INT NOT NULL,
+	user_id INT NOT NULL,
+	semester_id INT NOT NULL,
+	course_id VARCHAR NOT NULL,
+	grade VARCHAR(10) NOT NULL,
+	PRIMARY KEY (grade_id),
+	FOREIGN KEY (user_id)
+	REFERENCES Users(user_id),
+	FOREIGN KEY (semester_id)
+	REFERENCES Semester(semester_id),
+	FOREIGN KEY (course_id)
+	REFERENCES Courses(course_id)
+);
+  
+COPY Semester
+FROM '/home/tysha/Documents/Project 2/Semester.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY Courses
+FROM '/home/tysha/Documents/Project 2/Courses.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY Advisors
+FROM '/home/tysha/Documents/Project 2/Advisors.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY Users
+FROM '/home/tysha/Documents/Project 2/Users.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY Grades
+FROM '/home/tysha/Documents/Project 2/Grades.csv'
+DELIMITER ','
+CSV HEADER;

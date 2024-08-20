@@ -1,0 +1,112 @@
+CREATE DATABASE project_1;
+
+\c project_1
+
+CREATE TABLE Feeder(
+	feeder_id INT NOT NULL,
+	school_name CHAR(50) NOT NULL,
+	management CHAR(50) NOT NULL,
+	urban_rural CHAR(1) NOT NULL,
+	municipality CHAR(50),
+	funding CHAR(50) NOT NULL,
+	district CHAR(50) NOT NULL,
+	atlib_math_avg INT NOT NULL,
+	PRIMARY KEY (feeder_id)
+);
+
+ CREATE TABLE Programs(
+	program_id INT NOT NULL,
+	program_code CHAR(50) NOT NULL,
+	program_name CHAR(50) NOT NULL,
+	degree_id INT NOT NULL,
+	degree CHAR(50) NOT NULL,
+	PRIMARY KEY (program_id)
+);
+
+CREATE TABLE Courses(
+	course_id INT NOT NULL,
+	course_code VARCHAR NOT NULL,
+	course_title CHAR(50) NOT NULL,
+	course_credit INT NOT NULL,
+	PRIMARY KEY (course_id)
+);
+
+CREATE TABLE Student_information(
+	student_id INT NOT NULL,
+	gender CHAR(1) NOT NULL,
+	ethnicity CHAR(50) NOT NULL,
+	city CHAR(50),
+	district CHAR(50)NOT NULL,
+	CODE CHAR(4) NOT NULL,
+	PROGRAM CHAR(50) NOT NULL,
+	DEGREEID INT NOT NULL,
+	DEGREE CHAR(50) NOT NULL,
+	COURSECODE VARCHAR NOT NULL,
+	COURSETITLE CHAR(50) NOT NULL,
+	COURSECREDITS INT NOT NULL,
+	program_start DATE NOT NULL,
+	program_status CHAR(50) NOT NULL,
+	programEND DATE,
+	grad_date DATE,
+	feeder_id INT,
+	PRIMARY KEY (student_id)
+);
+
+
+CREATE TABLE Grades(
+	grade_id INT NOT NULL,
+	semester VARCHAR NOT NULL,
+	course_grade CHAR(50) NOT NULL,
+	course_points NUMERIC(5, 2),
+	student_id INT NOT NULL,
+	course_id INT NOT NULL,
+	PRIMARY KEY (grade_id),
+	FOREIGN KEY (student_id)
+	REFERENCES Student_information(student_id),
+	FOREIGN KEY (course_id)
+	REFERENCES COURSES(course_id)
+);
+ 
+CREATE TABLE Courses_Programs(
+	co_pro INT NOT NULL,
+	program_id INT NOT NULL,
+	course_id INT NOT NULL,
+	PRIMARY KEY (co_pro),
+	FOREIGN KEY (program_id)
+	REFERENCES Programs(program_id),
+	FOREIGN KEY (course_id)
+	REFERENCES COURSES(course_id)
+);
+ 
+COPY Feeder
+FROM '/home/tysha/Documents/Project 1/Feeder.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY Programs
+FROM '/home/tysha/Documents/Project 1/Programs.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY Courses
+FROM '/home/tysha/Documents/Project 1/Courses.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY Student_information
+FROM '/home/tysha/Documents/Project 1/Student_information.csv'
+DELIMITER ','
+CSV HEADER
+WHERE student_id IS NOT NULL;
+
+COPY Grades
+FROM '/home/tysha/Documents/Project 1/Grades.csv'
+DELIMITER ','
+CSV HEADER
+WHERE course_grade IS NOT NULL;
+
+COPY Courses_Programs
+FROM '/home/tysha/Documents/Project 1/Courses_Programs.csv'
+DELIMITER ','
+CSV HEADER;
+

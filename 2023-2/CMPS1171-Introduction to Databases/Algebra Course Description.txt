@@ -1,0 +1,2 @@
+This course provides a solid foundation for students who wish to study differential and integral calculus. It begins with a quick but rigorous review of high school algebraic topics which includes the topics of real numbers, exponents and radicals, linear and quadratic equations and inequalities. After this introduction the student is exposed to functions 
+and graphs, polynomial, partial fractions, rational functions, complex numbers, exponential and logarithmic functions. 

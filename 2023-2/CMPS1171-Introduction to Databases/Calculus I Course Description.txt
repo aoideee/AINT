@@ -1,0 +1,3 @@
+This 3-credit Introductory Calculus course serves to introduce students to the concepts of pure mathematics. As a base course, it will cover
+three main mathematical areas, which will serve as pre-requisites to other higher-level mathematics courses. These are Introduction to
+Differential Calculus, Introduction to Integral Calculus, and First Order Differential Equations.

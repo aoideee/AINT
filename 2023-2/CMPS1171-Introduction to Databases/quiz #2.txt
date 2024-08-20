@@ -1,0 +1,86 @@
+sudo -u postgres psql
+
+\c test_scores
+
+1. List all Belize Elementary Schools by BJAT score in descending order.
+
+SELECT pschoolname, AVG(bjat)
+FROM BJATGRADES B
+JOIN students S ON B.BJATStudentID = S.StudentID
+JOIN pschools ps ON S.BJATschoolID = ps.PSchoolID
+GROUP BY pschoolname
+ORDER BY AVG(bjat) DESC;
+
+2. List all Belize Elementary Schools in your District by BJAT score in descending order.
+
+SELECT pschoolname, AVG(bjat)
+FROM BJATGRADES B
+JOIN students S ON B.BJATStudentID = S.StudentID
+JOIN pschools ps ON S.BJATschoolID = ps.PSchoolID
+WHERE district = 'Cayo'
+GROUP BY pschoolname
+ORDER BY AVG(bjat) DESC;
+
+3. List all Belize Elementary Schools in your Municipality  by BJAT score in descending order (if you do not live in one of the listed Municipalities then choose the closest to your home).
+
+SELECT pschoolname, AVG(bjat)
+FROM BJATGRADES B
+JOIN students S ON B.BJATStudentID = S.StudentID
+JOIN pschools ps ON S.BJATschoolID = ps.PSchoolID
+WHERE municipality = 'Belmopan'
+GROUP BY pschoolname
+ORDER BY AVG(bjat) DESC;
+
+4. What was the average BJAT for your primary school?
+
+SELECT pschoolname, AVG(bjat)
+FROM BJATGRADES B
+JOIN students S ON B.BJATStudentID = S.StudentID
+JOIN pschools ps ON S.BJATschoolID = ps.PSchoolID
+WHERE pschoolname = 'SHEPHERDS ACADE CY'
+GROUP BY pschoolname
+ORDER BY AVG(bjat) DESC;
+
+-----------------------------------------------------------------------------------------------
+
+BONUS
+------
+
+5. List all Belize Elementary Schools by PSE score in descending order.
+
+SELECT pschoolname, AVG(pse)
+FROM PSEGRADES P
+JOIN students S ON P.PSEStudentID = S.StudentID
+JOIN pschools ps ON S.PSEschoolID = ps.PSchoolID
+GROUP BY pschoolname
+ORDER BY AVG(pse) DESC;
+
+6. List all Belize Elementary Schools in your District by PSE score in descending order.
+
+SELECT pschoolname, AVG(pse)
+FROM PSEGRADES P
+JOIN students S ON P.PSEStudentID = S.StudentID
+JOIN pschools ps ON S.PSEschoolID = ps.PSchoolID
+WHERE district = 'Cayo'
+GROUP BY pschoolname
+ORDER BY AVG(pse) DESC;
+
+7. List all Belize Elementary Schools in your Municipality  by PSE score in descending order (if you do not live in one of the listed Municipalities then choose the closest to your home).
+
+SELECT pschoolname, AVG(pse)
+FROM PSEGRADES P
+JOIN students S ON P.PSEStudentID = S.StudentID
+JOIN pschools ps ON S.PSEschoolID = ps.PSchoolID
+WHERE municipality = 'Belmopan'
+GROUP BY pschoolname
+ORDER BY AVG(pse) DESC;
+
+8. What was the average PSE for your primary school?
+
+SELECT pschoolname, AVG(pse)
+FROM PSEGRADES P
+JOIN students S ON P.PSEStudentID = S.StudentID
+JOIN pschools ps ON S.PSEschoolID = ps.PSchoolID
+WHERE pschoolname = 'SHEPHERDS ACADE CY'
+GROUP BY pschoolname
+ORDER BY AVG(pse) DESC;

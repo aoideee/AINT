@@ -1,0 +1,23 @@
+SELECT AVG(bjat)
+FROM bjatgrades b
+LEFT JOIN psegrades p on b.bjatstudentid = p.psestudentid
+WHERE p.psestudentid IS NULL;
+
+SELECT AVG(bjat)
+FROM bjatgrades b
+INNER JOIN psegrades p ON b.bjatstudentid = p.psestudentid;
+
+SELECT AVG(pse)
+FROM psegrades p
+LEFT JOIN bjatgrades b on p.psestudentid = b.bjatstudentid
+WHERE b.bjatstudentid IS NULL;
+
+SELECT AVG(p.pse)
+FROM psegrades p
+INNER JOIN bjatgrades b ON p.psestudentid = b.bjatstudentid;
+
+*I neglected to mention that the "WHERE IS NULL" part signifies instances where the specified criteria are absent. For instance, in the initial query, it implies that the query exclusively examines rows where the "bjatstudentid" is undefined or missing.
+
+Based on the results shown from the queries, it can be clearly seen that the students who were not held backed, excelled and gained higher marks in assesments, so it can be said that the police made the right decision to make the primary school students repeat.
+
+

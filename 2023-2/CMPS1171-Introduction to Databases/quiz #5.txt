@@ -1,0 +1,71 @@
+----------------------------
+STEP 1: Create the database
+----------------------------
+
+CREATE DATABASE ub_it_students;
+
+CREATE DATABASE ub_it_students_v2;
+
+
+--------------------------------------
+STEP 2: Create tables in the database
+--------------------------------------
+
+CREATE TABLE STUDENTS(
+    STUID INT NOT NULL,
+    GENDER VARCHAR(10),
+    ETHNICITY VARCHAR(50),
+    CITY VARCHAR(50),
+    DISTRICT VARCHAR(50),
+    FEEDER VARCHAR(50),
+    PROGRAMSTART DATE,
+    CODE VARCHAR(10),
+    PROGRAM VARCHAR(50),
+    DEGREEID INT,
+    DEGREE VARCHAR(50),
+    PROGRAMSTATUS VARCHAR(50),
+    GRADDATE DATE,
+    PROGRAMEND DATE,
+    ENROLLEDSEMESTER VARCHAR(50),
+    PRIMARY KEY (STUID)
+);
+		
+
+CREATE TABLE COURSES(
+    COURSECODE VARCHAR(50) NOT NULL,
+    COURSETITLE VARCHAR(255),
+    PRIMARY KEY (COURSECODE)
+);
+																						
+
+CREATE TABLE GRADES(
+    GradeID INT NOT NULL,
+    STUID INT NOT NULL,
+    COURSECODE VARCHAR(50) NOT NULL,
+    COURSEGRADE VARCHAR(10),
+    PRIMARY KEY (GradeID),
+    FOREIGN KEY (STUID) 
+        REFERENCES STUDENTS(STUID),
+    FOREIGN KEY (COURSECODE) 
+        REFERENCES COURSES(COURSECODE)
+);
+
+-------------------------------------------------------------------------
+STEP 3: Connect tables made in excel to the tables made in the datatbase
+-------------------------------------------------------------------------
+
+COPY students 
+FROM '/home/tysha/Documents/UB IT STUDENTS (IOD)/Students.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY courses 
+FROM '/home/tysha/Documents/UB IT STUDENTS (IOD)/Courses.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY grades 
+FROM '/home/tysha/Documents/UB IT STUDENTS (IOD)/Grades.csv'
+DELIMITER ','
+CSV HEADER;
+	

@@ -1,0 +1,225 @@
+1.) Is there correlation between BJAT and PSE scores? (Yes)
+
+SELECT CORR(bjatgrades.bjat, psegrades.pse) AS correlation
+FROM bjatgrades
+JOIN psegrades ON bjatgrades.bjatstudentid = psegrades.psestudentid;
+
+--------------------------------------------------------------------------------------------------------------
+
+2.) Is there correlation between PSE and ATLIB scores? (Yes)
+
+SELECT CORR(psegrades.pse, atlibgrades.atlibmath) AS correlation
+FROM psegrades
+JOIN atlibgrades ON psegrades.psestudentid = atlibgrades.atlibstudentid;
+
+---------------------------------------------------------------------------------------------------------------
+
+3.) Is there correlation between BJAT and ATLIB scores? (Yes)
+
+SELECT CORR(bjatgrades.bjat, atlibgrades.atlibmath) AS correlation
+FROM bjatgrades
+JOIN atlibgrades ON bjatgrades.bjatstudentid = atlibgrades.atlibstudentid;
+
+---------------------------------------------------------------------------------------------------------------
+
+4.) Is there correlation between ATLIB Math and English scores?
+
+SELECT CORR(A.ATLIBMath, A.ATLIBEnglish) AS correlation_ATLIB_Math_English
+FROM atlibgrades A;
+
+----------------------------------------------------------------------------------------------------------------
+
+5.) Which of these is the highest correlation?
+
+The highest correlation is between ATLIB MATH and ATLIB ENGLISH scores, with a correlation coefficient of 0.7062918526203945.
+
+proof:
+
+SELECT
+    correlation_type,
+    highest_correlation
+FROM (
+    SELECT
+        'BJAT and PSE' AS correlation_type,
+        CORR(B.BJAT, P.PSE) AS highest_correlation
+    FROM bjatgrades B
+    JOIN psegrades P ON B.BJATStudentID = P.PSEStudentID
+    UNION ALL
+    SELECT
+        'PSE and ATLIB' AS correlation_type,
+        CORR(P.PSE, A.ATLIBMath) AS highest_correlation
+    FROM psegrades P
+    JOIN atlibgrades A ON P.PSEStudentID = A.ATLIBStudentID
+    UNION ALL
+    SELECT
+        'BJAT and ATLIB' AS correlation_type,
+        CORR(B.BJAT, A.ATLIBMath) AS highest_correlation
+    FROM bjatgrades B
+    JOIN atlibgrades A ON B.BJATStudentID = A.ATLIBStudentID
+    UNION ALL
+    SELECT
+        'ATLIB Math and English' AS correlation_type,
+        CORR(A.ATLIBMath, A.ATLIBEnglish) AS highest_correlation
+    FROM atlibgrades A
+) AS highest_correlations
+ORDER BY highest_correlation DESC
+LIMIT 1;
+
+-----------------------------------------------------------------------------------------------------------------
+
+6.) Which of these is the lowest correlation?
+
+The lowest correlation is between BJAT and ATLIB scores, with a correlation coefficient of 0.45177891424573124.
+
+proof:
+
+SELECT
+    correlation_type,
+    highest_correlation
+FROM (
+    SELECT
+        'BJAT and PSE' AS correlation_type,
+        CORR(B.BJAT, P.PSE) AS highest_correlation
+    FROM bjatgrades B
+    JOIN psegrades P ON B.BJATStudentID = P.PSEStudentID
+    UNION ALL
+    SELECT
+        'PSE and ATLIB' AS correlation_type,
+        CORR(P.PSE, A.ATLIBMath) AS highest_correlation
+    FROM psegrades P
+    JOIN atlibgrades A ON P.PSEStudentID = A.ATLIBStudentID
+    UNION ALL
+    SELECT
+        'BJAT and ATLIB' AS correlation_type,
+        CORR(B.BJAT, A.ATLIBMath) AS highest_correlation
+    FROM bjatgrades B
+    JOIN atlibgrades A ON B.BJATStudentID = A.ATLIBStudentID
+    UNION ALL
+    SELECT
+        'ATLIB Math and English' AS correlation_type,
+        CORR(A.ATLIBMath, A.ATLIBEnglish) AS highest_correlation
+    FROM atlibgrades A
+) AS highest_correlations
+ORDER BY highest_correlation ASC
+LIMIT 1;
+
+-----------------------------------------------------------------------------------------------------------------
+
+7.) What is the best predictor of how well a UB IT student will perform at UB (correlation between feeder institution ATLIB score and UB COURSEPOINTS?
+
+SELECT 
+    CORR(f.atlib_math_avg, g.course_points) AS correlation
+FROM 
+    Student_information si
+    JOIN Feeder f ON si.feeder_id = f.feeder_id
+    JOIN Grades g ON si.student_id = g.student_id;
+
+(whenever I try to do a group by it doesnt return the correlation)
+------------------------------------------------------------------------------------------------------------------
+
+8.) What is the prediction of a PSE grade for a student that scored 60 in the BJAT?*** Do not attempt 7 and 8. You should have 1 - 6 and 9 - 11 completed by next class. If not ask for assistance from your classmates or instructor.
+
+SELECT
+    ROUND(AVG(P.PSE), 2) AS predicted_PSE_grade
+FROM bjatgrades B
+JOIN psegrades P ON B.BJATStudentID = P.PSEStudentID
+WHERE B.BJAT=60;
+
+---------------------------------------------------------------------------------------------------------------
+
+9.) Find the student average (COURSEPOINTS) by their background GENDER	ETHNICITY	CITY	DISTRICT	FEEDER).
+
+Student average (COURSEPOINTS) by background:
+
+SELECT 
+    S.GENDER,
+    S.ETHNICITY,
+    S.CITY,
+    S.DISTRICT,
+    S.FEEDER,
+    AVG(
+        CASE G.COURSEGRADE
+            WHEN 'A' THEN 4
+            WHEN 'B' THEN 3
+            WHEN 'C' THEN 2
+            WHEN 'D' THEN 1
+            WHEN 'F' THEN 0
+        END
+    ) AS avg_coursegrade
+FROM 
+    students S
+    LEFT JOIN grades G ON S.STUID = G.STUID
+GROUP BY 
+    S.GENDER,
+    S.ETHNICITY, 
+    S.CITY,
+    S.DISTRICT,
+    S.FEEDER;
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+10.) Rank all IT courses by difficulty level (Average CoursePoints and percent of students who successfully complete the course, and percent of letter grade).
+
+Rank IT courses by difficulty level:
+
+WITH course_grades AS (
+    SELECT
+        C.coursecodeid,
+        G.COURSEGRADE
+    FROM
+        courses C
+        LEFT JOIN grades G ON C.coursecodeid = G.coursecodeid
+    WHERE
+        C.coursecodeid LIKE 'CMPS%'
+),
+course_stats AS (
+    SELECT
+        coursecodeid,
+        AVG(CASE
+            WHEN COURSEGRADE = 'A' THEN 4
+            WHEN COURSEGRADE = 'B' THEN 3
+            WHEN COURSEGRADE = 'C' THEN 2
+            WHEN COURSEGRADE = 'D' THEN 1
+            WHEN COURSEGRADE = 'F' THEN 0
+            ELSE NULL
+        END) AS avg_coursegrade,
+        SUM(CASE WHEN COURSEGRADE IN ('A', 'B', 'C') THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS success_rate,
+        SUM(CASE WHEN COURSEGRADE = 'A' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS a_rate,
+        SUM(CASE WHEN COURSEGRADE = 'B' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS b_rate,
+        SUM(CASE WHEN COURSEGRADE = 'C' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS c_rate,
+        SUM(CASE WHEN COURSEGRADE = 'D' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS d_rate,
+        SUM(CASE WHEN COURSEGRADE = 'F' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS f_rate
+    FROM
+        course_grades
+    GROUP BY
+        coursecodeid
+)
+SELECT
+    coursecodeid,
+    COALESCE(avg_coursegrade, 0) AS avg_coursegrade,
+    COALESCE(success_rate, 0) AS success_rate,
+    COALESCE(a_rate, 0) AS a_rate,
+    COALESCE(b_rate, 0) AS b_rate,
+    COALESCE(c_rate, 0) AS c_rate,
+    COALESCE(d_rate, 0) AS d_rate,
+    COALESCE(f_rate, 0) AS f_rate
+FROM
+    course_stats
+ORDER BY
+    avg_coursegrade ASC,
+    success_rate ASC,
+    a_rate DESC,
+    b_rate DESC,
+    c_rate DESC,
+    d_rate ASC,
+    f_rate ASC;
+
+----------------------------------------------------------------------------------------------------------------
+
+11.) On average how long does it take to complete an associates in IT at UB?
+
+SELECT
+    AVG((S.programend - S.programstart)/365.25) AS avg_years_to_complete
+FROM students S
+WHERE S.programstatus = 'Graduated';

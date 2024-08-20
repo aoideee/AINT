@@ -1,0 +1,53 @@
+﻿sudo -u postgres psql
+
+
+CREATE DATABASE bank;
+
+
+\c bank
+
+
+CREATE ROLE bank WITH PASSWORD 'Tysha';
+
+
+\q
+
+
+psql --host=localhost --dbname=bank --username=bank
+
+
+CREATE TABLE employees (
+    employee_id serial PRIMARY KEY,
+    name text NOT NULL,
+    job text NOT NULL,
+    salary int NOT NULL
+);
+
+
+INSERT INTO employees (name, job, salary) VALUES ('Employee 1', 'Job 1', 1000);
+INSERT INTO employees (name, job, salary) VALUES ('Employee 2', 'Job 2', 2000); 
+INSERT INTO employees (name, job, salary) VALUES ('Employee 3', 'Job 3', 3000); 
+INSERT INTO employees (name, job, salary) VALUES ('Employee 4', 'Job 4', 4000); 
+INSERT INTO employees (name, job, salary) VALUES ('Employee 5', 'Job 5', 5000);
+
+
+SELECT
+FROM employees
+ORDER BY name DESC;
+
+
+—----------------------------------------------------------------------------------------------------------------------------
+
+
+To check the info:
+
+
+sudo -u postgres psql
+
+
+\c bank
+\dt
+
+
+SELECT * FROM employees;
+I had also forgotten to mention in the video that i wasn't too sure about what was meant by ‘tables.sql’ so i created a file in the text editor with the code and gave it the same title.
