@@ -9,6 +9,7 @@ public:
     Node* prev;
 };
 
+//Function that prints the linked list
 void printList(Node* head) {
     Node* current=head;
     while(current!=nullptr) {
@@ -17,6 +18,7 @@ void printList(Node* head) {
     }
 }
 
+//Function that prints the linked list backward
 void printListBackward(Node* current) {
     while(current!=nullptr) {
         cout<<current->value<<" ";
@@ -24,6 +26,7 @@ void printListBackward(Node* current) {
     }
 }
 
+//Function that adds a new node at the beginning
 void addBeginning(Node* &head) {
     Node* temp=head;
     Node* fifth= new Node();
@@ -34,6 +37,7 @@ void addBeginning(Node* &head) {
     head=fifth;
 }
 
+//Function that adds a new node after the second node
 void afterNode2(Node* &head) {
     Node* temp=head;
     int current=0;
@@ -50,6 +54,7 @@ void afterNode2(Node* &head) {
     temp->next=sixth;
 }
 
+//Function that adds a new node at the end
 void atEnd(Node* &head) {
     Node* temp=head;
 
@@ -64,6 +69,7 @@ void atEnd(Node* &head) {
     seventh->next=nullptr;
 }
 
+//Function that deletes the head node
 void deleteHead(Node* &head) {
     Node* temp=head;
     head=temp->next;
@@ -72,6 +78,7 @@ void deleteHead(Node* &head) {
     delete temp;
 }
 
+//Function that deletes the node after the second node
 void deleteAfterNode2(Node* &head) {
     Node* temp=head;
     int counter=0;
@@ -90,6 +97,7 @@ void deleteAfterNode2(Node* &head) {
     delete deleteNode;
 }
 
+//Function that deletes the last node
 void deleteEnd(Node* &head) {
     Node* temp=head;
 
