@@ -4,4 +4,5 @@ project(Tue)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Tue
-    main.cpp)
+    main.cpp
+        ../Thur/main.cpp)

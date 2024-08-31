@@ -9,12 +9,31 @@ public:
     Node* prev;
 };
 
+void printList(Node* head) {
+    Node* current=head;
+    cout<<current->value<<" ";
+    current=current->next;
+}
+
+void addBeginning(Node* &head) {
+    Node*current=head;
+    Node* temp=head->next;
+
+    Node* fifth = new Node();
+    fifth->value=5;
+    current=fifth;
+    current->prev=nullptr;
+    fifth->next=current->next;
+    current->prev=fifth;
+}
+
 int main() {
     Node* head = nullptr;
 
     Node* first = new Node();
     first->value=1;
     head=first;
+    head->prev=nullptr;
     first->prev=nullptr;
     first->next=nullptr;
 
@@ -52,6 +71,13 @@ int main() {
         cout<<current->value<<" ";
         current=current->prev;
     }
+
+    cout<<endl;
+
+    //Inserting a new node at the beginning
+    addBeginning(head);
+    cout<<"Linked list after inserting node at the beginning: ";
+    printList(head);
 
     return 0;
 }
