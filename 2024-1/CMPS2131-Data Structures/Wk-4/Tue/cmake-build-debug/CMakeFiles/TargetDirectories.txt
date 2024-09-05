@@ -1,0 +1,3 @@
+C:/Users/Tysha/AINT/2024-1/CMPS2131-Data Structures/Wk-4/Tue/cmake-build-debug/CMakeFiles/Tue.dir
+C:/Users/Tysha/AINT/2024-1/CMPS2131-Data Structures/Wk-4/Tue/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Tysha/AINT/2024-1/CMPS2131-Data Structures/Wk-4/Tue/cmake-build-debug/CMakeFiles/rebuild_cache.dir
