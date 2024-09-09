@@ -7,20 +7,77 @@
   <style>
     /* Write your CSS Code here */
     .flag{
-      background-color: #ce1126;
       width: 900px;
       height: 600px;
+      background-color: #0033a0;
+      position: relative;
+      margin: 0 auto;
     }
 
-    div{
-      background-color: #002868;
+    .flag::before, .flag::after{
+      content: "";
+      display: block;
       width: 900px;
-      height: 400px;
+      height: 50px;
+      background-color: #d52b1e;
+      position: absolute;
+      left: 0;
     }
 
-    p{
-      background-color: #ce1126;
+    .flag::before{
+      top:0;
     }
+
+    .flag::after{
+      content: "of Belize";
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 35px;
+      font-weight: bold;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      line-height: 150%;
+    }
+
+    .flag > div > div > p{
+      display: none;
+    }
+    
+    .flag > div{
+      width: 450px;
+      height: 450px;
+      background-color: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .flag > div > div{
+      width: 100%;
+      height: 93%;
+      margin-top: 3%;
+      background-image: url(./assets/Coat_of_arms_of_Belize.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .flag > p{
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 35px;
+      font-weight: bold;
+    }
+
+    .flag > p:first-of-type{
+      top: -27px;
+    }
+    
   </style>
 </head>
 
