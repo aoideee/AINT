@@ -1,0 +1,95 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 50px 50px 0 50px;
+  background-color: #faf9f6;
+  display: flex;
+  flex-direction: column;
+  min-height: 95vh;
+}
+.main {
+  flex: 1;
+}
+
+h1 {
+  font-size: 5rem;
+  width: 70%;
+}
+
+.highlight{
+  color: midnightblue;
+}
+
+.card{
+  display: inline-block;
+  width: 50%;
+}
+
+.card-title{
+  margin-left: 50%;
+  margin-right: 12%;
+}
+
+.card-text{
+  margin-left: 50%;
+  margin-right: 12%;
+}
+
+/*I added the float left to the .title-image and removed the floats for .card-tile 
+& .-card-text and it finally moved to the proper position it needed to be😭😭
+(I'VE BEEN ON THIS FOR THE WHOLE AFTERNOONNNNN) also, by using the pesticide extension
+on chrome, it helped me to see that when I used the margin, it was actually shrinking the
+box which is what I needed so that helped me get he h2 and p to their exact lengths*/
+.tile-image {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    float: left;
+}
+
+.left{
+  float: left;
+}
+
+.right{
+  float: right;
+}
+
+footer {
+  text-align: right;
+  color: midnightblue;
+}
+
+@media (min-width: 320px) and (max-width: 1000px){
+  .logo{
+    width: 40%;
+  }
+
+  .tile-image {
+    margin-left: 4.5%;
+}
+
+  h1{
+    font-size: 45px;
+    text-align: center;
+    margin-left: 15%;
+  }
+
+  .card{
+    display: block;
+    width: 100%;
+  }
+
+  .card-title{
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 10%;
+    text-align: center;
+  }
+
+  .card-text{
+    text-align: center;
+    margin-left: 15%;
+    padding-bottom: 5%;
+  }
+}
+
